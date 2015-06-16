@@ -4,7 +4,9 @@
     <meta charset="utf-8">
     <title>Login</title>
     <style type="text/css">
-      .container {
+      .alt {
+        padding: 10px;
+        border-bottom: 1px solid rgba(39, 40, 34, 1);
       }
     </style>
   </head>
@@ -18,7 +20,11 @@
   <hr/>
 
   <div class='container'>
-    <a href='<?php echo site_url ('alts');?>'>文章</a>
+    <?php 
+      foreach ($alts as $alt) {
+        echo "<div class='alt'>" . $alt . "</div>";
+      }
+    ?>
   </div>
 
   </body>

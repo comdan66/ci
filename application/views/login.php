@@ -5,6 +5,12 @@
     <title>Login</title>
     <style type="text/css">
       .container {
+        width: 200px;
+        margin: 0 auto;
+      }
+      input[type="text"], input[type="password"] {
+      }
+      hr {
       }
     </style>
   </head>
@@ -18,7 +24,12 @@
   <hr/>
 
   <div class='container'>
-    <a href='<?php echo site_url ('alts');?>'>文章</a>
+    <form action='<?php echo site_url ('login/post');?>' method='post'>
+      <input type='text' name='account' value=''/>
+      <input type='password' name='password' value=''/>
+      <hr/>
+      <button type='submit'>登入</button>
+    </form>
   </div>
 
   </body>

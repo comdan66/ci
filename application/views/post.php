@@ -5,6 +5,8 @@
     <title>Login</title>
     <style type="text/css">
       .container {
+        width: 200px;
+        margin: 0 auto;
       }
     </style>
   </head>
@@ -18,7 +20,7 @@
   <hr/>
 
   <div class='container'>
-    <a href='<?php echo site_url ('alts');?>'>文章</a>
+    <?php echo $message;?>
   </div>
 
   </body>
