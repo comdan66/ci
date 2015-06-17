@@ -16,5 +16,6 @@
     <a href='<?php echo site_url ('articles/add');?>'>新增文章</a>
     <hr/>
     
+    新增成功
   </body>
 </html>

@@ -16,5 +16,12 @@
     <a href='<?php echo site_url ('articles/add');?>'>新增文章</a>
     <hr/>
     
+    <?php
+      if ($articles) {
+        foreach ($articles as $article) {
+          echo $article->title . "<br/>";
+        }
+      }
+    ?>
   </body>
 </html>

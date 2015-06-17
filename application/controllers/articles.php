@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Alts extends CI_Controller {
+class Articles extends CI_Controller {
 
   /**
    * Index Page for this controller.
@@ -19,17 +19,28 @@ class Alts extends CI_Controller {
    */
   public function index()
   {
-    $alts = array(
-      '文章1',
-      '文章2',
-      '文章3',
-      '文章4',
-      '文章5',
-      '文章6',
-      );
-    $this->load->view('alts_index', array (
-        'alts' => $alts
+    $this->load->model('article');
+    $articles = $this->article->get_articles ();
+
+    $this->load->view('article/index', array (
+        'articles' => $articles
       ));
+  }
+  public function add()
+  {
+    $this->load->view('article/add');
+  }
+  public function add_post () {
+    $title = $this->input->post ('title');
+
+    $data = array (
+        'title' => $title
+      );
+
+    $this->load->model('article');
+    $this->article->add_article ($data);
+    
+    $this->load->view('article/add_post');
   }
 }
 
