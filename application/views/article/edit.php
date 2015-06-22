@@ -16,13 +16,10 @@
     <a href='<?php echo site_url ('articles/add');?>'>新增文章</a>
     <hr/>
     
-    <?php
-      if ($articles) {
-        foreach ($articles as $article) { ?>
-          <a href='<?php echo site_url ('articles/edit/' . $article->id);?>'>修改</a>|<a href='<?php echo site_url ('articles/delete/' . $article->id);?>'>刪除</a> - <?php echo $article->title;?>
-          <hr/>  
-  <?php }
-      }
-    ?>
+    <form action='<?php echo site_url ('articles/edit_post/' . $article->id);?>' method='post'>
+      <input type='text' name='title' value='<?php echo $article->title;?>'/>
+      <button type='submit'>修改</button>
+    </form>
+
   </body>
 </html>

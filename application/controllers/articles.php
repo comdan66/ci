@@ -42,7 +42,38 @@ class Articles extends CI_Controller {
     
     $this->load->view('article/add_post');
   }
+  public function edit ($id = 0)
+  {
+    $this->load->model('article');
+    $article = $this->article->get_article ($id);
+    
+    if (!$article)
+      redirect ('articles');
+
+    $this->load->view('article/edit', array(
+        'article' => $article
+      ));
+  }
+  public function edit_post ($id = 0)
+  {
+    $title = $this->input->post ('title');
+
+    $this->load->model('article');
+    $this->article->update_article ($id, array (
+      'title' => $title
+      ));
+
+    $this->load->view('article/edit_post');
+  }
+  public function delete ($id = 0)
+  {
+    $this->load->model('article');
+    $this->article->delete_article ($id);
+    $this->load->view('article/delete');
+  }
 }
+
+
 
 /* End of file welcome.php */
 /* Location: ./application/controllers/welcome.php */

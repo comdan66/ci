@@ -17,7 +17,7 @@
     <hr/>
     
     <form action='<?php echo site_url ('articles/add_post');?>' method='post'>
-      <input type='text' name='title' vaule=''/>
+      <input type='text' name='title' value=''/>
       <button type='submit'>新增</button>
     </form>
 
