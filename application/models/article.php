@@ -14,7 +14,7 @@ class Article extends CI_Model {
   }
   public function add_article ($data)
   {
-    $this->db->insert('article', $data);
+    $this->db->insert('articles', $data);
   }
   public function get_article ($id)
   {
