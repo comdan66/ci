@@ -13,7 +13,11 @@
     include APPPATH . 'views/header.php'
     ?>
 
-    <form action='<?php echo site_url ('platform/login_post');?>' method='POST'>
+    <form action='<?php echo site_url ('platform/register_post');?>' method='POST'>
+      暱稱：
+      <input type='text' name='name' value='' />
+      <br/>
+      <br/>
       帳號：
       <input type='text' name='account' value='' />
       <br/>

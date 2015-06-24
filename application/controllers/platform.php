@@ -2,15 +2,49 @@
 
 class Platform extends CI_Controller {
 
+  public function register()
+  {
+    if ($this->input->cookie('is_login') === 'YES')
+      redirect ();
+
+    $this->load->view('platform/register', array (
+        'has_login' => false
+      ));
+  }
+  public function register_post()
+  {
+    if ($this->input->cookie('is_login') === 'YES')
+      redirect ();
+
+    $name = $this->input->post ('name');
+    $account = $this->input->post ('account');
+    $password = $this->input->post ('password');
+
+    if (!$name || !$name || !$name) {
+      $message = '填寫的資料有誤，註冊失敗！';
+    } else {
+      $data = array (
+          'account' => $account,
+          'password' => $password,
+          'name' => $name,
+        );
+      $this->load->model ('user');
+      $this->user->add_user ($data);
+
+      $message = '註冊成功！';
+    }
+    $this->load->view('platform/register_post', array (
+        'has_login' => false,
+        'message' => $message
+      ));
+  }
   public function login()
   {
     if ($this->input->cookie('is_login') === 'YES')
-      $has_login = true;
-    else
-      $has_login = false;
+      redirect ();
 
     $this->load->view('platform/login', array (
-        'has_login' => $has_login
+        'has_login' => false
       ));
   }
 

@@ -13,6 +13,6 @@
     include APPPATH . 'views/header.php'
     ?>
 
-    登出成功！
+    <?php echo $message;?>
   </body>
 </html>

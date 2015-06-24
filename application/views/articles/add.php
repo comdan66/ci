@@ -13,6 +13,10 @@
     include APPPATH . 'views/header.php'
     ?>
 
-    登出成功！
+    <form action='<?php echo site_url ('articles/add_post');?>' method='post'>
+      <input type='text' name='title' value=''/>
+      <button type='submit'>新增</button>
+    </form>
+
   </body>
 </html>

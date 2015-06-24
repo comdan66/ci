@@ -13,6 +13,10 @@
     include APPPATH . 'views/header.php'
     ?>
 
-    登出成功！
+    <form action='<?php echo site_url ('articles/edit_post/' . $article->id);?>' method='post'>
+      <input type='text' name='title' value='<?php echo $article->title;?>'/>
+      <button type='submit'>修改</button>
+    </form>
+
   </body>
 </html>
