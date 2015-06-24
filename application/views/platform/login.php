@@ -22,15 +22,17 @@
     }
     ?>
     <hr/>
-    
-    <?php
-    if ($has_login) { ?>
-      目前是<b>登入狀態</b>。
-    <?php
-    } else {?>
-      目前是<b>未登入狀態</b>。
-    <?php
-    }
-    ?>
+
+    <form action='<?php echo site_url ('platform/login_post');?>' method='POST'>
+      帳號：
+      <input type='text' name='account' value='' />
+      <br/>
+      <br/>
+      密碼：
+      <input type='password' name='password' value='' />
+      <br/>
+      <br/>
+      <button type='submit'>登入</button>
+    </form>
   </body>
 </html>
