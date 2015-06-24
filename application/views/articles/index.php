@@ -17,6 +17,9 @@
       <thead>
         <tr>
           <th>
+            ID
+          </th>
+          <th>
             Title
           </th>
           <th>
@@ -32,6 +35,9 @@
         if ($articles) {
           foreach ($articles as $article) { ?>
             <tr>
+              <th>
+                <?php echo $article->id;?>
+              </th>
               <th>
                 <?php echo $article->title;?>
               </th>
