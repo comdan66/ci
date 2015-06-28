@@ -6,6 +6,7 @@ class Articles extends CI_Controller {
   {
     $this->load->helper('cookie');
 
+
     if ($this->input->cookie('is_login') === 'YES')
      $has_login = true;
     else
