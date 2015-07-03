@@ -16,6 +16,54 @@ class Platform extends CI_Controller {
         'message' => $message
       ));
   }
+  public function register () {
+    // 如果已經登入的話
+    if (user ())
+      redirect ();
+
+    $this->load->view('platform/register');
+  }
+  public function register_post () {
+    // 如果已經登入的話
+    if (user ())
+      redirect ();
+
+    // 取得 post 過來的資料
+    $name = $this->input->post ('name');
+    $account = $this->input->post ('account');
+    $password = $this->input->post ('password');
+
+    if (!($name && $account && $password)) {
+      return $this->load->view('platform/message', array (
+          'message' => '填寫資料有缺'
+        ));
+    }
+
+    $this->load->model ('user');
+
+    // 進資料庫 藉由 account 比對是否有該 user
+    $user = $this->user->get_user_by_ac ($account);
+
+    // 因為用 account 去取資料庫，有該筆資料，代表帳號重複
+    if ($user) {
+      return $this->load->view('platform/message', array (
+          'message' => '帳號重複'
+        ));
+    }
+    
+    // 新增使用者
+    $data = array (
+        'name' => $name,
+        'account' => $account,
+        'password' => $password
+      );
+
+    $this->user->add_user ($data);
+
+    $this->load->view('platform/message', array (
+        'message' => '註冊成功'
+      ));
+  }
   public function login () {
     // 如果已經登入的話
     if (user ())
@@ -30,11 +78,12 @@ class Platform extends CI_Controller {
       redirect ();
 
     // 取得 post 過來的資料
-    $account  = $this->input->post ('account');
+    $account = $this->input->post ('account');
     $password = $this->input->post ('password');
     
-    // 進資料庫 比對是否有該 user
     $this->load->model ('user');
+
+    // 進資料庫 比對是否有該 user
     $user = $this->user->get_user_by_acc_psw ($account, $password);
 
     // 有該位 user
@@ -46,7 +95,7 @@ class Platform extends CI_Controller {
       $message = '登入失敗';
     }
 
-    $this->load->view('platform/login_post', array (
+    $this->load->view('platform/message', array (
         'message' => $message
       ));
   }

@@ -116,7 +116,7 @@
     
 <?php if (user ()) { ?>
         <form action='<?php echo site_url ('welcome/create')?>' method='post'>
-          <textarea name='content' placeholder='請輸入內容...'></textarea>
+          <textarea name='content' placeholder='請輸入內容..'></textarea>
           <button type='submit'>送出</button>
         </form>
 <?php } else { ?>

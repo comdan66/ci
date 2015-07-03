@@ -7,13 +7,13 @@
       h1 {
         margin-top: 50px;
       }
-      .login {
+      .register {
         display: inline-block;
         width: 300px;
         margin: 0 auto;
         margin-top: 30px;
       }
-      .login input {
+      .register input {
         width: 250px;
         height: 25px;
         margin-bottom: 2px;
@@ -22,18 +22,21 @@
 
         outline: 0;
       }
-      .login input:focus {
+      .register input:focus {
 
         border: 1px solid rgba(102, 175, 233, 1);
         box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
       }
+      .register input[name='name'] {
+        margin-bottom: 20px;
+      }
       hr {
         margin: 20px auto;
       }
-      .login .buttons {
+      .register .buttons {
         text-align: right;
       }
-      .login .buttons button {
+      .register .buttons button {
         border: 0 solid transparent;
         color: rgba(255, 255, 255, .85);
         padding: 2px 10px 4px 10px;
@@ -51,17 +54,17 @@
         outline: 0;
         background-color: rgba(255, 152, 0, 1);
       }
-      .login .buttons button:active {
+      .register .buttons button:active {
         text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
         box-shadow: inset 2px 2px 10px rgba(0, 0, 0, 0.225);
       }
-      .login .buttons button:hover {
+      .register .buttons button:hover {
         background-color: rgba(245, 142, 0, 1);
       }
-      .login .buttons button[type='reset'] {
+      .register .buttons button[type='reset'] {
         background-color: rgba(244, 67, 54, 1);
       }
-      .login .buttons button[type='reset']:hover {
+      .register .buttons button[type='reset']:hover {
         background-color: rgba(234, 57, 44, 1);
       }
     </style>
@@ -69,8 +72,9 @@
   <body>
     <?php include FCPATH . 'application/views/include/header.php';?>
     
-    <h1>登入</h1>
-    <form class='login' action='<?php echo site_url ('platform/login_post')?>' method='post'>
+    <h1>註冊</h1>
+    <form class='register' action='<?php echo site_url ('platform/register_post')?>' method='post'>
+      <input type='text' name='name' value='' placeholder='請輸入暱稱..' />
       <input type='text' name='account' value='' placeholder='請輸入帳號..' />
       <input type='password' name='password' value='' placeholder='請輸入密碼..' />
       <hr/>
