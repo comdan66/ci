@@ -2,36 +2,37 @@
 
 class Welcome extends CI_Controller {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -  
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in 
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see http://codeigniter.com/user_guide/general/urls.html
-	 */
-	public function index()
-	{
+	public function create () {
+    // 沒有登入的話
+    if (!user ())
+      redirect ();
+		
+    // 取得 post 的東西
+		$content = $this->input->post ('content');
 
-     $this->load->helper('cookie');
+    // 沒有輸入內容的話
+		if (!$content) 
+      redirect ();
 
-     if ($this->input->cookie('is_login') === 'YES')
-     	$has_login = true;
-     else
-     	$has_login = false;
+    // 新增
+		$this->load->model ('message');
+
+		$data = array (
+        'user_id' => user ()->id,
+        'content' => $content,
+        'created_at' => date ('Y-m-d H:i:s')
+      );
+		$this->message->create ($data);
+
+    redirect ();
+	}
+	public function index () {
+    // 取得所有訊息
+		$this->load->model ('message');
+		$messages = $this->message->all ();
 
 		$this->load->view('welcome_message', array (
-				'has_login' => $has_login
+				'messages' => $messages
 			));
 	}
 }
-
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */
