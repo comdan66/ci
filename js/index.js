@@ -40,7 +40,14 @@ $(function () {
     showForm: function () { window.vars.$.plus.toggleClass ('open'); if (window.vars.$.plus.hasClass ('open')) window.vars.myMessageTimer =  setTimeout (function () { window.vars.$.myMessage.focus (); }, 500); else clearTimeout (window.vars.myMessageTimer); },
     getFbData: function (cb) { FB.api('/me', function (response) { window.storages.user.set ({ fbuid: response.id, name: response.name, src: 'https://graph.facebook.com/' + response.id + '/picture?width=100&height=100' }); window.funcs.removeSameUser (response.id); return cb && cb (response); }); },
     checkLoginState: function (cb, eb) { FB.getLoginStatus (function (response) { if (response.status != 'connected') return window.storages.user.set (null) && eb && eb (); return cb && cb (response); }); return eb && eb (); },
-    initFB: function () { if (!window.storages.user.get ()) window.funcs.checkLoginState (function () { window.funcs.getFbData (); }, function () { window.vars.$.facebook.click (function () { window.vars.$.loading.addClass ('show').find ('.txt').text ('登入中，請稍候..'); FB.login (function (response) { if (response.status != 'connected') return window.vars.$.loading.removeClass ('show') && window.vars.$.facebook.prev ().text ('登入失敗..'); window.funcs.getFbData (function () { window.vars.$.loading.removeClass ('show'); window.vars.$.facebook.parents ('.popbox').removeClass ('show'); window.funcs.showForm (); }); }, {scope: 'public_profile,email'}); }); }); },
+    initFB: function () { 
+      window.storages.user.set ({
+        fbuid: 1853126214923671,
+        name: 'test',
+        src: 'https://graph.facebook.com/' + 1853126214923671 + '/picture?width=100&height=100' }); window.funcs.removeSameUser (1853126214923671);
+      return cb && cb ();
+      // if (!window.storages.user.get ()) window.funcs.checkLoginState (function () { window.funcs.getFbData (); }, function () { window.vars.$.facebook.click (function () { window.vars.$.loading.addClass ('show').find ('.txt').text ('登入中，請稍候..'); FB.login (function (response) { if (response.status != 'connected') return window.vars.$.loading.removeClass ('show') && window.vars.$.facebook.prev ().text ('登入失敗..'); window.funcs.getFbData (function () { window.vars.$.loading.removeClass ('show'); window.vars.$.facebook.parents ('.popbox').removeClass ('show'); window.funcs.showForm (); }); }, {scope: 'public_profile,email'}); }); }); 
+    },
 
     setUserTime: function () {
       setInterval (function () { window.vars.firebaseDB.ref ('users/' + window.storages.uuid.get () + '/time/').set (new Date ().getTime ()); }, 60 * 1000);
