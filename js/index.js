@@ -60,14 +60,14 @@ $(function () {
     setUserTime: function () {
       setInterval (function () { window.vars.firebaseDB.ref ('users/' + window.storages.uuid.get () + '/time/').set (new Date ().getTime ()); }, 60 * 1000);
 
-      window.vars.firebaseUserRef.orderByChild ('time').endAt (new Date ().getTime () - 10 * 60 * 1000).once ('value', function (snapshot) {
-        var datas = [];
-        for (var i in snapshot.val ())
-          datas.push (snapshot.val ()[i]);
-        datas.forEach (function (t) {
-          window.vars.firebaseDB.ref ('users/' + t.uid + '/enable/').set (0);
-        });
-      });
+      // window.vars.firebaseUserRef.orderByChild ('time').endAt (new Date ().getTime () - 10 * 60 * 1000).once ('value', function (snapshot) {
+      //   var datas = [];
+      //   for (var i in snapshot.val ())
+      //     datas.push (snapshot.val ()[i]);
+      //   datas.forEach (function (t) {
+      //     window.vars.firebaseDB.ref ('users/' + t.uid + '/enable/').set (0);
+      //   });
+      // });
     },
     // initStep: function (cb) { window.vars.$.loading.removeClass ('show'); window.vars.$.step1.addClass ('show').find ('.cover, .cancel').click (function () { window.vars.$.step2.addClass ('show'); }); window.vars.$.step2.find ('.cover, .cancel').click (function () { window.vars.$.step3.addClass ('show'); }); window.vars.$.step3.find ('.cover, .cancel').click (function () { window.vars.$.loading.addClass ('show').find ('.txt').text ('初始中，請稍候..'); window.funcs.initGeoFeature (cb); }); },
     showHistory: function (data) { window.vars.$.loading.addClass ('show').find ('.txt').text ('讀取中，請稍候..'); window.vars.$.history.find ('h4').text (data.name + ' 的訊息紀錄').next ().empty ().parents ('.popbox').addClass ('show'); window.vars.firebaseDB.ref ('messages/' + data.uid).limitToLast (100).once ('value', function (snapshot) { var msgs = []; for (var i in snapshot.val ()) msgs.push (snapshot.val ()[i]); window.vars.$.loading.removeClass ('show'); window.vars.$.history.find ('.panel_content').empty ().append (msgs.map (function (t) {return $('<div />').addClass ('he').append ($('<div />').addClass ('avatar').append ($('<img />').attr ('src', data.src))).append ($('<span />').text (t.content.slice (0, 255))).append ($('<time />').text ($.timeago (t.time)));})).find ('.avatar').imgLiquid ({verticalAlign: 'center'}).parents ('.popbox').addClass ('show'); }); },
@@ -261,8 +261,9 @@ $(function () {
   window.vars.z = 0;
   window.vars.audio = { pop: new Audio('pop.mp3'), chat: new Audio('chat.mp3')};
 
+window.firebaseConfig={apiKey:"AIzaSyARwzYJbM8bp4NoxS9p-yuvOAmEnXBihO4",authDomain:"livemaps-a7f27.firebaseapp.com",databaseURL:"https://livemaps-a7f27.firebaseio.com",storageBucket:"livemaps-a7f27.appspot.com",messagingSenderId:"679826347999"};
 
-  window.funcs.initFirebase (window.storages.version.get (20));
+  window.funcs.initFirebase (window.storages.version.get (21));
   window.vars.$.popbox.find ('.cover, .cancel').click (function () { window.vars.$.popbox.removeClass ('show'); });
 
   google.maps.event.addDomListener (window, 'load', function () {
@@ -276,6 +277,9 @@ $(function () {
 
     window.vars.firebaseUserRef.orderByChild ('enable').equalTo (1).on ('child_added', window.funcs.appendUser);
     window.vars.firebaseUserRef.orderByChild ('enable').equalTo (0).on ('child_added', window.funcs.removeUser);
+    window.vars.firebaseDB.ref ('blacks/').on ('value', function (snapshot) {
+      window.vars.blacks = []; for (var i in snapshot.val ()) window.vars.blacks.push (snapshot.val ()[i]);
+    });
     
     window.storages.user.set ({
       fbuid: 10153859105057617,
@@ -286,12 +290,14 @@ $(function () {
     window.vars.$.donate.click (function () { window.open ('https://livemaps.ioa.tw/donate.html', '_blank'); }).addClass ('show');
     window.vars.$.zoomIn.click (function () { window.vars.maps.setZoom (window.vars.maps.zoom + 1); }).addClass ('show');
     window.vars.$.zoomOut.click (function () { window.vars.maps.setZoom (window.vars.maps.zoom - 1); }).addClass ('show');
+    
     window.vars.$.send.click (function () {
-      if (window.vars.t)return;
+      if (window.vars.t) return;
+      if ($.inArray (window.storages.user.get ().fbuid, window.vars.blacks) != -1 ) { alert ('您的帳號疑似被檢舉黑名單囉！'); return; }
 
       window.vars.t = true;
       var val = window.vars.$.myMessage.val ().trim ().slice (0, 255); if (!val.length) return ;
-      
+
       window.vars.firebaseDB.ref ('users/' + window.storages.uuid.get () + '/msg/').set ({
         content: val, utime: new Date ().getTime ()
       });
@@ -329,10 +335,10 @@ $(function () {
 
       alert ('已經戳囉！');
       window.vars.$.markerMenu.css ({ top: -100, left: -100 }).removeClass ('show');
-
-      setTimeout (function () {
+// 
+      // setTimeout (function () {
         window.vars.tx = false;
-      }, 1 * 60 * 1000);
+      // }, 1 * 60 * 1000);
     });
 
     window.vars.$.plus.click (function () {
