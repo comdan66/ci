@@ -40,7 +40,7 @@ $(function () {
     showForm: function () { window.vars.$.plus.toggleClass ('open'); if (window.vars.$.plus.hasClass ('open')) window.vars.myMessageTimer =  setTimeout (function () { window.vars.$.myMessage.focus (); }, 500); else clearTimeout (window.vars.myMessageTimer); },
     getFbData: function (cb) { FB.api('/me', function (response) { window.storages.user.set ({ fbuid: response.id, name: response.name, src: 'https://graph.facebook.com/' + response.id + '/picture?width=100&height=100' }); window.funcs.removeSameUser (response.id); return cb && cb (response); }); },
     checkLoginState: function (cb, eb) { FB.getLoginStatus (function (response) { if (response.status != 'connected') return window.storages.user.set (null) && eb && eb (); return cb && cb (response); }); return eb && eb (); },
-    initFB: function () { 
+    initFB: function (cb) { 
       window.storages.user.set ({
         fbuid: '1853126214923671',
         name: 'test',
