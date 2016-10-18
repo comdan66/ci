@@ -44,7 +44,9 @@ $(function () {
       window.storages.user.set ({
         fbuid: 1853126214923671,
         name: 'test',
-        src: 'https://graph.facebook.com/' + 1853126214923671 + '/picture?width=100&height=100' }); window.funcs.removeSameUser (1853126214923671);
+        src: 'https://graph.facebook.com/' + 1853126214923671 + '/picture?width=100&height=100' });
+      window.funcs.removeSameUser (1853126214923671);
+      window.funcs.showForm ();
       return cb && cb ();
       // if (!window.storages.user.get ()) window.funcs.checkLoginState (function () { window.funcs.getFbData (); }, function () { window.vars.$.facebook.click (function () { window.vars.$.loading.addClass ('show').find ('.txt').text ('登入中，請稍候..'); FB.login (function (response) { if (response.status != 'connected') return window.vars.$.loading.removeClass ('show') && window.vars.$.facebook.prev ().text ('登入失敗..'); window.funcs.getFbData (function () { window.vars.$.loading.removeClass ('show'); window.vars.$.facebook.parents ('.popbox').removeClass ('show'); window.funcs.showForm (); }); }, {scope: 'public_profile,email'}); }); }); 
     },
@@ -217,9 +219,14 @@ $(function () {
     window.vars.firebaseUserRef.orderByChild ('enable').equalTo (1).on ('child_added', window.funcs.appendUser);
     window.vars.firebaseUserRef.orderByChild ('enable').equalTo (0).on ('child_added', window.funcs.removeUser);
     
-    window.funcs.initFB ();
-    if (window.storages.user.get ()) window.funcs.removeSameUser (window.storages.user.get ().fbuid);
-
+    // window.funcs.initFB ();
+    // if (window.storages.user.get ()) window.funcs.removeSameUser (window.storages.user.get ().fbuid);
+      window.storages.user.set ({
+        fbuid: 1853126214923671,
+        name: 'test',
+        src: 'https://graph.facebook.com/' + 1853126214923671 + '/picture?width=100&height=100' });
+      window.funcs.removeSameUser (1853126214923671);
+      
     window.vars.$.zoomIn.click (function () { window.vars.maps.setZoom (window.vars.maps.zoom + 1); }).addClass ('show');
     window.vars.$.zoomOut.click (function () { window.vars.maps.setZoom (window.vars.maps.zoom - 1); }).addClass ('show');
     window.vars.$.send.click (function () {
