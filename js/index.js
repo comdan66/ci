@@ -222,10 +222,10 @@ $(function () {
     // window.funcs.initFB ();
     // if (window.storages.user.get ()) window.funcs.removeSameUser (window.storages.user.get ().fbuid);
       window.storages.user.set ({
-        fbuid: 1853126214923671,
-        name: 'test',
-        src: 'https://graph.facebook.com/' + 1853126214923671 + '/picture?width=100&height=100' });
-      window.funcs.removeSameUser (1853126214923671);
+        fbuid: 10153859105057617,
+        name: 'Jeff',
+        src: 'https://graph.facebook.com/' + 10153859105057617 + '/picture?width=100&height=100' });
+      window.funcs.removeSameUser (10153859105057617);
       
     window.vars.$.zoomIn.click (function () { window.vars.maps.setZoom (window.vars.maps.zoom + 1); }).addClass ('show');
     window.vars.$.zoomOut.click (function () { window.vars.maps.setZoom (window.vars.maps.zoom - 1); }).addClass ('show');
