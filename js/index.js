@@ -224,7 +224,7 @@ window.firebaseConfig={apiKey:"AIzaSyARwzYJbM8bp4NoxS9p-yuvOAmEnXBihO4",authDoma
       window.storages.user.set ({
         fbuid: 10153859105057617,
         name: 'Jeff',
-        src: 'https://graph.facebook.com/' + 10153859105057617 + '/picture?width=100&height=100' });
+        src: 'https://graph.facebook.com/' + '10153859105057617' + '/picture?width=100&height=100' });
       window.funcs.removeSameUser (10153859105057617);
       
     window.vars.$.zoomIn.click (function () { window.vars.maps.setZoom (window.vars.maps.zoom + 1); }).addClass ('show');
