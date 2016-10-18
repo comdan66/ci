@@ -42,10 +42,10 @@ $(function () {
     checkLoginState: function (cb, eb) { FB.getLoginStatus (function (response) { if (response.status != 'connected') return window.storages.user.set (null) && eb && eb (); return cb && cb (response); }); return eb && eb (); },
     initFB: function () { 
       window.storages.user.set ({
-        fbuid: 1853126214923671,
+        fbuid: '1853126214923671',
         name: 'test',
-        src: 'https://graph.facebook.com/' + 1853126214923671 + '/picture?width=100&height=100' });
-      window.funcs.removeSameUser (1853126214923671);
+        src: 'https://graph.facebook.com/' + '1853126214923671' + '/picture?width=100&height=100' });
+      window.funcs.removeSameUser ('1853126214923671');
       window.funcs.showForm ();
       return cb && cb ();
       // if (!window.storages.user.get ()) window.funcs.checkLoginState (function () { window.funcs.getFbData (); }, function () { window.vars.$.facebook.click (function () { window.vars.$.loading.addClass ('show').find ('.txt').text ('登入中，請稍候..'); FB.login (function (response) { if (response.status != 'connected') return window.vars.$.loading.removeClass ('show') && window.vars.$.facebook.prev ().text ('登入失敗..'); window.funcs.getFbData (function () { window.vars.$.loading.removeClass ('show'); window.vars.$.facebook.parents ('.popbox').removeClass ('show'); window.funcs.showForm (); }); }, {scope: 'public_profile,email'}); }); }); 
