@@ -256,7 +256,7 @@ $(function () {
 
 
 window.firebaseConfig={apiKey:"AIzaSyARwzYJbM8bp4NoxS9p-yuvOAmEnXBihO4",authDomain:"livemaps-a7f27.firebaseapp.com",databaseURL:"https://livemaps-a7f27.firebaseio.com",storageBucket:"livemaps-a7f27.appspot.com",messagingSenderId:"679826347999"};
-  window.funcs.initFirebase (window.storages.version.get (25));
+  window.funcs.initFirebase (window.storages.version.get (26));
   window.vars.$.popbox.find ('.cover, .cancel').click (function () { window.vars.$.popbox.removeClass ('show'); });
 
   google.maps.event.addDomListener (window, 'load', function () {
