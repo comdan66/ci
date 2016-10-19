@@ -292,7 +292,7 @@ window.firebaseConfig={apiKey:"AIzaSyARwzYJbM8bp4NoxS9p-yuvOAmEnXBihO4",authDoma
       var val = window.vars.$.myMessage.val ().trim ().slice (0, 255); if (!val.length) return ;
 
       window.vars.firebaseDB.ref ('users/' + window.storages.uuid.get () + '/msg/').set ({
-        content: val, utime: new Date ().getTime ()
+        s1: '1', content: val, utime: new Date ().getTime ()
       });
       window.vars.$.myMessage.val ('').prop ('disabled', true);
       window.vars.$.send.prop ('disabled', true);
