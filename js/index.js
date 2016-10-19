@@ -85,12 +85,9 @@ $(function () {
         window.vars.lat = position.coords.latitude;
         window.vars.lng = position.coords.longitude;
 
-        setTimeout (function () {
-          window.vars.$.loading.removeClass ('show')
-        }, 1000);
         return window.storages.inited.set ('yes');
       }, function () {
-        return window.vars.$.loading.removeClass ('show') && window.storages.inited.set ('yes') && cb && cb ();
+        return window.vars.$.loading.removeClass ('show') && window.storages.inited.set ('yes');
       }, { enableHighAccuracy: true });
     },
     getPixelPosition: function (obj) {
@@ -261,9 +258,9 @@ $(function () {
   window.vars.z = 0;
   window.vars.audio = { pop: new Audio('pop.mp3'), chat: new Audio('chat.mp3')};
 
-window.firebaseConfig={apiKey:"AIzaSyARwzYJbM8bp4NoxS9p-yuvOAmEnXBihO4",authDomain:"livemaps-a7f27.firebaseapp.com",databaseURL:"https://livemaps-a7f27.firebaseio.com",storageBucket:"livemaps-a7f27.appspot.com",messagingSenderId:"679826347999"};
 
-  window.funcs.initFirebase (window.storages.version.get (21));
+window.firebaseConfig={apiKey:"AIzaSyARwzYJbM8bp4NoxS9p-yuvOAmEnXBihO4",authDomain:"livemaps-a7f27.firebaseapp.com",databaseURL:"https://livemaps-a7f27.firebaseio.com",storageBucket:"livemaps-a7f27.appspot.com",messagingSenderId:"679826347999"};
+  window.funcs.initFirebase (window.storages.version.get (25));
   window.vars.$.popbox.find ('.cover, .cancel').click (function () { window.vars.$.popbox.removeClass ('show'); });
 
   google.maps.event.addDomListener (window, 'load', function () {
@@ -310,6 +307,8 @@ window.firebaseConfig={apiKey:"AIzaSyARwzYJbM8bp4NoxS9p-yuvOAmEnXBihO4",authDoma
         window.vars.$.myMessage.val ('').prop ('disabled', false);
         window.vars.$.send.prop ('disabled', false);
         window.vars.$.form.removeClass ('sec');
+
+        window.vars.$.myMessage.focus ();
       }, 5 * 1000);
     });
     window.vars.$.relogin.find ('.cover, .ok').click (function () { location.reload (); });
@@ -319,11 +318,16 @@ window.firebaseConfig={apiKey:"AIzaSyARwzYJbM8bp4NoxS9p-yuvOAmEnXBihO4",authDoma
     window.vars.$.login.find ('.ok').click (function () { window.vars.$.popbox.removeClass ('show');  });
     window.vars.$.see_comments.click (function () { window.vars.$.comments.addClass ('show'); }).addClass ('show');
     
-    window.vars.$.markerMenu.find ('.look_fb').click (function () { if (window.vars.$.markerMenu.get (0).point.data.fbuid != 0) window.open('https://www.facebook.com/' + window.vars.$.markerMenu.get (0).point.data.fbuid, '_blank'); });
+    window.vars.$.markerMenu.find ('.look_fb').click (function () {
+      if (window.vars.$.markerMenu.get (0).point.data.fbuid != 0)
+        window.open ('https://www.facebook.com/' + window.vars.$.markerMenu.get (0).point.data.fbuid, '_blank');
+      else 
+        alert ('她未登入喔！');
+    });
     window.vars.$.markerMenu.find ('.pick_he').click (function () { 
       var msg = prompt ('輸入您想跟他說的話吧！');
       if (window.vars.tx) {
-        alert ('您剛剛已經戳過了，1 分鐘後再試試..')
+        alert ('您剛剛已經戳過了，30秒後再試試..')
         return;
       }
       window.vars.tx = true;
@@ -336,9 +340,9 @@ window.firebaseConfig={apiKey:"AIzaSyARwzYJbM8bp4NoxS9p-yuvOAmEnXBihO4",authDoma
       alert ('已經戳囉！');
       window.vars.$.markerMenu.css ({ top: -100, left: -100 }).removeClass ('show');
 // 
-      // setTimeout (function () {
+      setTimeout (function () {
         window.vars.tx = false;
-      // }, 1 * 60 * 1000);
+      }, 30 * 1000);
     });
 
     window.vars.$.plus.click (function () {
@@ -359,7 +363,15 @@ window.firebaseConfig={apiKey:"AIzaSyARwzYJbM8bp4NoxS9p-yuvOAmEnXBihO4",authDoma
       window.vars.$.logs.toggleClass ('show');
     }).addClass ('show');
 
-    var audio = function () { if (window.vars.lat === null && window.vars.lng === null) window.vars.$.myLocation.click (function () { window.vars.maps.setOptions ({ zoom: 16, center: new google.maps.LatLng (window.vars.lat, window.vars.lng)}); }).addClass ('show'); setTimeout (function () { window.vars.hasAudio = window.storages.audio.get (); }, 2000); };
+    var audio = function () {
+      if (!(window.vars.lat === null && window.vars.lng === null)) return;
+
+      window.vars.$.myLocation.click (function () {
+        window.vars.maps.setOptions ({ zoom: 16, center: new google.maps.LatLng (window.vars.lat, window.vars.lng)});
+      }).addClass ('show');
+      window.vars.$.loading.removeClass ('show');
+      setTimeout (function () { window.vars.hasAudio = window.storages.audio.get (); }, 2000);
+    };
     window.funcs.initNotification ();
     window.funcs.initGeoFeature (audio);
 
